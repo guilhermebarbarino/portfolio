@@ -1,173 +1,705 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guilherme Barbarino | Software Engineer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
-        .gradient-text { background: linear-gradient(90deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guilherme Barbarino — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080b10;
+    --bg2: #0d1117;
+    --bg3: #111820;
+    --accent: #00e5a0;
+    --accent2: #00b4d8;
+    --muted: #4a5568;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --border: rgba(0,229,160,0.12);
+    --border2: rgba(0,180,216,0.15);
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  ::selection { background: var(--accent); color: #080b10; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 1.2rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(8,11,16,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .nav-logo span { color: var(--text2); }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav a {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text2);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--accent); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 6rem 2.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-name {
+    font-family: var(--sans);
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.2rem;
+  }
+  .hero-name .last { color: var(--accent); }
+
+  .hero-title {
+    font-family: var(--mono);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    color: var(--text2);
+    margin-bottom: 2.5rem;
+    max-width: 520px;
+    line-height: 1.8;
+  }
+  .hero-title .hl { color: var(--accent2); }
+
+  .hero-ctas {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    margin-bottom: 4rem;
+  }
+
+  .btn {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    padding: 0.75rem 1.6rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #080b10;
+    font-weight: 700;
+  }
+  .btn-primary:hover { background: #00ffb3; transform: translateY(-2px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text2);
+    border: 1px solid var(--muted);
+  }
+  .btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem; flex-wrap: wrap;
+  }
+  .stat {
+    display: flex; flex-direction: column;
+  }
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text2);
+    letter-spacing: 0.08em;
+  }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 5rem 2.5rem; max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-label::before {
+    content: '//';
+    color: var(--muted);
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+    line-height: 1.15;
+  }
+  .section-title .accent { color: var(--accent); }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border) 40%, transparent);
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  /* ─── ABOUT ─── */
+  #about .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 1rem;
+    color: var(--text2);
+    line-height: 1.85;
+    margin-bottom: 1.2rem;
+  }
+  .about-text p strong { color: var(--text); font-weight: 600; }
+  .about-text p .g { color: var(--accent); }
+
+  .about-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+  .about-card-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+  }
+  .card-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+  }
+  .card-item:last-child { border-bottom: none; }
+  .card-item .key { color: var(--text2); }
+  .card-item .val { color: var(--accent); }
+
+  /* ─── STACK ─── */
+  #stack .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .stack-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.4rem;
+    transition: border-color 0.25s, transform 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .stack-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .stack-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .stack-card:hover::before { transform: scaleX(1); }
+  .stack-card.blue:hover { border-color: var(--accent2); }
+  .stack-card.blue::before { background: var(--accent2); }
+
+  .stack-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .stack-name {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+  .stack-desc {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ─── PROJECTS ─── */
+  #projects .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.2rem;
+  }
+  .project-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.6rem;
+    transition: border-color 0.25s, transform 0.25s;
+    display: flex; flex-direction: column;
+    text-decoration: none;
+  }
+  .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .project-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 0.8rem;
+  }
+  .project-icon {
+    font-size: 1.2rem;
+  }
+  .project-arrow {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--muted);
+    transition: color 0.2s, transform 0.2s;
+  }
+  .project-card:hover .project-arrow { color: var(--accent); transform: translate(3px, -3px); }
+
+  .project-name {
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--text2);
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 1.2rem;
+  }
+  .project-tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+    background: rgba(0,229,160,0.08);
+    color: var(--accent);
+    border: 1px solid rgba(0,229,160,0.2);
+  }
+  .tag.blue {
+    background: rgba(0,180,216,0.08);
+    color: var(--accent2);
+    border-color: rgba(0,180,216,0.2);
+  }
+
+  /* ─── CONTACT ─── */
+  #contact {
+    text-align: center;
+    padding: 6rem 2.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  #contact .section-title { margin-bottom: 1rem; }
+  .contact-sub {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--text2);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+  .contact-links {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  footer p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+  footer .accent { color: var(--accent); }
+
+  /* ─── ANIMATIONS ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* typing cursor */
+  .cursor {
+    display: inline-block;
+    width: 2px; height: 1.1em;
+    background: var(--accent);
+    margin-left: 3px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* glow pulse on hero name */
+  @keyframes pulse-glow {
+    0%, 100% { text-shadow: 0 0 20px rgba(0,229,160,0.3); }
+    50% { text-shadow: 0 0 40px rgba(0,229,160,0.6); }
+  }
+  .hero-name .last { animation: pulse-glow 3s ease-in-out infinite; }
+
+  @media (max-width: 700px) {
+    nav ul { display: none; }
+    #about .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    #hero { padding: 7rem 1.5rem 3rem; }
+    section { padding: 4rem 1.5rem; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
 </head>
-<body class="scroll-smooth">
+<body>
 
-    <!-- Navbar -->
-    <nav class="fixed w-full z-50 glass-card py-4">
-        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
-            <span class="text-xl font-bold tracking-tighter">G.<span class="text-blue-400">Barbarino</span></span>
-            <div class="space-x-8 hidden md:flex text-sm font-medium uppercase tracking-widest">
-                <a href="#inicio" class="hover:text-blue-400 transition">Início</a>
-                <a href="#sobre" class="hover:text-blue-400 transition">Sobre</a>
-                <a href="#skills" class="hover:text-blue-400 transition">Skills</a>
-                <a href="#projetos" class="hover:text-blue-400 transition">Projetos</a>
-                <a href="mailto:guiilhermesilva466@gmail.com" class="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition">Contato</a>
-            </div>
-        </div>
-    </nav>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>~/</span>guilherme.barbarino</div>
+  <ul>
+    <li><a href="#about">sobre</a></li>
+    <li><a href="#stack">stack</a></li>
+    <li><a href="#projects">projetos</a></li>
+    <li><a href="#contact">contato</a></li>
+  </ul>
+</nav>
 
-    <!-- Hero Section -->
-    <section id="inicio" class="min-h-screen flex items-center pt-20 px-6">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <h2 class="text-blue-400 font-mono mb-4 tracking-widest">SOFTWARE ENGINEER</h2>
-                <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
-                    Construindo <span class="gradient-text">Sistemas Escaláveis</span> e Robustos.
-                </h1>
-                <p class="text-gray-400 text-lg mb-8 max-w-lg">
-                    Desenvolvedor Back-end especializado em ecossistema **.NET**, focado em **Clean Architecture**, SOLID e soluções cloud-native.
-                </p>
-                <div class="flex space-x-4">
-                    <a href="#projetos" class="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-900/20">Ver Projetos</a>
-                    <a href="https://github.com/guilhermebarbarino" target="_blank" class="border border-slate-700 px-8 py-3 rounded-full font-semibold hover:bg-slate-800 transition flex items-center gap-2">
-                        <i class="fab fa-github"></i> GitHub
-                    </a>
-                </div>
-            </div>
-            <div class="hidden md:block">
-                <div class="relative">
-                    <div class="absolute -inset-4 bg-blue-500/20 rounded-full blur-3xl"></div>
-                    <img src="https://avatars.githubusercontent.com/u/74333587?v=4" alt="Guilherme" class="relative rounded-2xl border-2 border-slate-700 w-80 h-80 object-cover mx-auto">
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-tag">Software Engineer</div>
+  <h1 class="hero-name">
+    Guilherme<br>
+    <span class="last">Barbarino</span>
+  </h1>
+<div style="margin-top:30px;">
+  <img src="assets/profile.png" alt="Guilherme Barbarino" style="width:220px;border-radius:12px;border:2px solid #00e5a0;">
+</div>
 
-    <!-- Sobre Section -->
-    <section id="sobre" class="py-24 px-6 bg-slate-900/50">
-        <div class="max-w-4xl mx-auto text-center">
-            <h3 class="text-3xl font-bold mb-8">Sobre mim</h3>
-            <p class="text-gray-300 text-lg leading-relaxed">
-                Olá! Eu sou o Guilherme. Atualmente trabalho com <span class="text-white font-semibold">C# e .NET</span>, aplicando boas práticas como Clean Architecture, SOLID e TDD. 
-                Minha paixão está no desenvolvimento de APIs de alta performance e na integração com serviços da <span class="text-white font-semibold">AWS</span> para criar infraestruturas modernas e automatizadas via Terraform.
-            </p>
-        </div>
-    </section>
+  <p class="hero-title">
+    Back-end Developer focado em <span class="hl">.NET &amp; C#</span><br>
+    Construindo APIs robustas com <span class="hl">Clean Architecture</span>,<br>
+    <span class="hl">SOLID</span> e soluções <span class="hl">cloud-native na AWS</span>
+    <span class="cursor"></span>
+  </p>
+  <div class="hero-ctas">
+    <a href="https://github.com/guilhermebarbarino" target="_blank" class="btn btn-primary">
+      ↗ GitHub
+    </a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">12+</span>
+      <span class="stat-label">repositórios</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">.NET</span>
+      <span class="stat-label">stack principal</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">AWS</span>
+      <span class="stat-label">cloud provider</span>
+    </div>
+  </div>
+</section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="py-24 px-6">
-        <div class="max-w-6xl mx-auto text-center">
-            <h3 class="text-3xl font-bold mb-16">Stack Tecnológica</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Skill 1 -->
-                <div class="glass-card p-8 rounded-2xl hover:border-blue-500 transition group">
-                    <i class="fas fa-code text-4xl text-blue-400 mb-4 group-hover:scale-110 transition"></i>
-                    <h4 class="font-bold">C# / .NET</h4>
-                    <p class="text-xs text-gray-500 mt-2">Core, WebAPI, Entity Framework</p>
-                </div>
-                <!-- Skill 2 -->
-                <div class="glass-card p-8 rounded-2xl hover:border-blue-500 transition group">
-                    <i class="fas fa-layer-group text-4xl text-blue-400 mb-4 group-hover:scale-110 transition"></i>
-                    <h4 class="font-bold">Clean Architecture</h4>
-                    <p class="text-xs text-gray-500 mt-2">DDD, SOLID, TDD</p>
-                </div>
-                <!-- Skill 3 -->
-                <div class="glass-card p-8 rounded-2xl hover:border-blue-500 transition group">
-                    <i class="fab fa-aws text-4xl text-blue-400 mb-4 group-hover:scale-110 transition"></i>
-                    <h4 class="font-bold">AWS & Cloud</h4>
-                    <p class="text-xs text-gray-500 mt-2">EC2, S3, RDS, Lambda</p>
-                </div>
-                <!-- Skill 4 -->
-                <div class="glass-card p-8 rounded-2xl hover:border-blue-500 transition group">
-                    <i class="fas fa-database text-4xl text-blue-400 mb-4 group-hover:scale-110 transition"></i>
-                    <h4 class="font-bold">MySQL & Infra</h4>
-                    <p class="text-xs text-gray-500 mt-2">Terraform, Git, Docker</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="divider"></div>
 
-    <!-- Projetos Section -->
-    <section id="projetos" class="py-24 px-6 bg-slate-900/50">
-        <div class="max-w-6xl mx-auto">
-            <div class="flex justify-between items-end mb-12">
-                <div>
-                    <h3 class="text-3xl font-bold">Projetos em Destaque</h3>
-                    <p class="text-gray-400 mt-2">Soluções que desenvolvi no meu GitHub</p>
-                </div>
-                <a href="https://github.com/guilhermebarbarino" class="text-blue-400 hover:underline">Ver todos →</a>
-            </div>
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="section-label">sobre mim</div>
+    <h2 class="section-title">Arquitetura que<br><span class="accent">escala de verdade</span></h2>
+  </div>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>
+        Sou desenvolvedor back-end com foco em construção de <strong>APIs robustas</strong> e sistemas escaláveis. 
+        Trabalho com <span class="g">C# e .NET</span> aplicando boas práticas como <strong>Clean Architecture</strong>, 
+        <strong>SOLID</strong> e <strong>TDD</strong>.
+      </p>
+      <p>
+        Tenho experiência com integração de serviços da <span class="g">AWS</span> em ambientes de produção, 
+        usando Terraform para provisionamento de infraestrutura de forma versionada e reproduzível.
+      </p>
+      <p>
+        Sou apaixonado por <strong>design de software</strong> — não só por fazer funcionar, mas por 
+        fazer da forma <span class="g">certa</span>: com separação de responsabilidades, testabilidade 
+        e manutenibilidade no longo prazo.
+      </p>
+    </div>
+    <div>
+      <div class="about-card">
+        <div class="about-card-label">// perfil técnico</div>
+        <div class="card-item"><span class="key">linguagem</span><span class="val">C# · .NET</span></div>
+        <div class="card-item"><span class="key">arquitetura</span><span class="val">Clean Arch · DDD</span></div>
+        <div class="card-item"><span class="key">cloud</span><span class="val">AWS</span></div>
+        <div class="card-item"><span class="key">iac</span><span class="val">Terraform</span></div>
+        <div class="card-item"><span class="key">database</span><span class="val">MySQL</span></div>
+        <div class="card-item"><span class="key">testes</span><span class="val">xUnit · TDD</span></div>
+        <div class="card-item"><span class="key">localização</span><span class="val">Cotia, SP</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Projeto 1 -->
-                <div class="glass-card rounded-2xl overflow-hidden group">
-                    <div class="p-8">
-                        <div class="flex justify-between items-start mb-4">
-                            <i class="fas fa-folder text-blue-400 text-3xl"></i>
-                            <div class="flex gap-4">
-                                <a href="https://github.com/guilhermebarbarino/projeto-padrao-arquitetura-limpa" target="_blank" class="hover:text-blue-400 transition"><i class="fab fa-github text-xl"></i></a>
-                            </div>
-                        </div>
-                        <h4 class="text-xl font-bold mb-2 group-hover:text-blue-400 transition">Projeto Padrão Arquitetura Limpa</h4>
-                        <p class="text-gray-400 text-sm mb-6">
-                            Template robusto para criação de projetos .NET utilizando princípios de Clean Architecture, separação de preocupações e design pattern de repositório.
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-500/10 text-blue-400 text-xs px-3 py-1 rounded-full border border-blue-500/20">C#</span>
-                            <span class="bg-blue-500/10 text-blue-400 text-xs px-3 py-1 rounded-full border border-blue-500/20">.NET Core</span>
-                            <span class="bg-blue-500/10 text-blue-400 text-xs px-3 py-1 rounded-full border border-blue-500/20">Design Patterns</span>
-                        </div>
-                    </div>
-                </div>
+<div class="divider"></div>
 
-                <!-- Projeto 2 (Placeholder dinâmico) -->
-                <div class="glass-card rounded-2xl overflow-hidden group">
-                    <div class="p-8">
-                        <div class="flex justify-between items-start mb-4">
-                            <i class="fas fa-cloud text-blue-400 text-3xl"></i>
-                            <div class="flex gap-4">
-                                <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-github text-xl"></i></a>
-                            </div>
-                        </div>
-                        <h4 class="text-xl font-bold mb-2 group-hover:text-blue-400 transition">API Scalable Solutions</h4>
-                        <p class="text-gray-400 text-sm mb-6">
-                            Microserviços focados em performance e escalabilidade vertical/horizontal integrados com AWS.
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-500/10 text-blue-400 text-xs px-3 py-1 rounded-full border border-blue-500/20">AWS</span>
-                            <span class="bg-blue-500/10 text-blue-400 text-xs px-3 py-1 rounded-full border border-blue-500/20">Terraform</span>
-                            <span class="bg-blue-500/10 text-blue-400 text-xs px-3 py-1 rounded-full border border-blue-500/20">DevOps</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- STACK -->
+<section id="stack">
+  <div class="reveal">
+    <div class="section-label">tecnologias</div>
+    <h2 class="section-title">Stack &amp; <span class="accent">ferramentas</span></h2>
+  </div>
+  <div class="stack-grid">
+    <div class="stack-card reveal">
+      <span class="stack-icon">⬡</span>
+      <div class="stack-name">C# · .NET</div>
+      <div class="stack-desc">Linguagem e framework principal. APIs RESTful, WebAPI, Middleware.</div>
+    </div>
+    <div class="stack-card reveal">
+      <span class="stack-icon">◈</span>
+      <div class="stack-name">Clean Architecture</div>
+      <div class="stack-desc">Domain, Application, Infra, API. Separação de camadas, inversão de dependência.</div>
+    </div>
+    <div class="stack-card reveal">
+      <span class="stack-icon">◎</span>
+      <div class="stack-name">SOLID · Design Patterns</div>
+      <div class="stack-desc">Mediator, Repository, Unit of Work, CQRS. Código extensível e testável.</div>
+    </div>
+    <div class="stack-card blue reveal">
+      <span class="stack-icon">☁</span>
+      <div class="stack-name">AWS</div>
+      <div class="stack-desc">Serviços cloud em produção. Escalabilidade e alta disponibilidade.</div>
+    </div>
+    <div class="stack-card blue reveal">
+      <span class="stack-icon">⬟</span>
+      <div class="stack-name">Terraform</div>
+      <div class="stack-desc">Infraestrutura como código. Provisionamento versionado e reproduzível.</div>
+    </div>
+    <div class="stack-card reveal">
+      <span class="stack-icon">◉</span>
+      <div class="stack-name">MySQL · EF Core</div>
+      <div class="stack-desc">Modelagem relacional, migrations, queries otimizadas com Entity Framework.</div>
+    </div>
+    <div class="stack-card reveal">
+      <span class="stack-icon">✦</span>
+      <div class="stack-name">xUnit · TDD</div>
+      <div class="stack-desc">Testes unitários, cobertura de domínio, desenvolvimento guiado por testes.</div>
+    </div>
+    <div class="stack-card blue reveal">
+      <span class="stack-icon">◷</span>
+      <div class="stack-name">Git · DevOps</div>
+      <div class="stack-desc">Controle de versão, branching strategies, pipelines de CI/CD.</div>
+    </div>
+  </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-slate-800">
-        <div class="max-w-6xl mx-auto flex flex-col md:row justify-between items-center gap-6">
-            <p class="text-gray-500 text-sm">© 2024 Guilherme Da Silva Barbarino. Feito com <i class="fas fa-heart text-red-500"></i> e .NET</p>
-            <div class="flex space-x-6">
-                <a href="https://www.linkedin.com/in/guilhermebarbarino/" target="_blank" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/guilhermebarbarino" target="_blank" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-github"></i></a>
-                <a href="mailto:guiilhermesilva466@gmail.com" class="text-gray-400 hover:text-white text-xl"><i class="fas fa-envelope"></i></a>
-            </div>
-        </div>
-    </footer>
+<div class="divider"></div>
 
+<!-- PROJECTS -->
+
+<section id="projects">
+  <div class="reveal">
+    <div class="section-label">projetos</div>
+    <h2 class="section-title">Código que <span class="accent">fala por si</span></h2>
+  </div>
+  <div class="projects-grid">
+
+    <a class="project-card reveal" href="https://github.com/guilhermebarbarino/bff-consulta-cep-java-springboot" target="_blank">
+      <div class="project-header">
+        <span class="project-icon">☕</span>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div class="project-name">BFF Consulta CEP</div>
+      <p class="project-desc">
+        Backend for Frontend desenvolvido com Spring Boot para consulta de CEP, focado em integração, padronização de respostas e organização da comunicação com o frontend.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Java</span>
+        <span class="tag">Spring Boot</span>
+        <span class="tag blue">BFF</span>
+        <span class="tag blue">API</span>
+      </div>
+    </a>
+
+    <a class="project-card reveal" href="https://github.com/guilhermebarbarino/pattern-adapter-gateway-pagamento" target="_blank">
+      <div class="project-header">
+        <span class="project-icon">🔌</span>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div class="project-name">Adapter Pattern - Gateway Pagamento</div>
+      <p class="project-desc">
+        Implementação do padrão Adapter para abstração de gateways de pagamento, reduzindo acoplamento e facilitando evolução e troca de provedores.
+      </p>
+      <div class="project-tags">
+        <span class="tag">C#</span>
+        <span class="tag">Design Pattern</span>
+        <span class="tag blue">Adapter</span>
+        <span class="tag blue">Arquitetura</span>
+      </div>
+    </a>
+
+    <a class="project-card reveal" href="https://github.com/guilhermebarbarino/pattern-strategy-calculo-frete" target="_blank">
+      <div class="project-header">
+        <span class="project-icon">📦</span>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div class="project-name">Strategy Pattern - Cálculo Frete</div>
+      <p class="project-desc">
+        Aplicação do padrão Strategy para cálculo dinâmico de frete com múltiplas regras de negócio, reforçando extensibilidade e aderência ao SOLID.
+      </p>
+      <div class="project-tags">
+        <span class="tag">C#</span>
+        <span class="tag">Design Pattern</span>
+        <span class="tag blue">Strategy</span>
+        <span class="tag blue">SOLID</span>
+      </div>
+    </a>
+
+    <a class="project-card reveal" href="https://github.com/guilhermebarbarino/aplicacao-cofrinho" target="_blank">
+      <div class="project-header">
+        <span class="project-icon">💰</span>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div class="project-name">Aplicação Cofrinho</div>
+      <p class="project-desc">
+        Aplicação para gerenciamento financeiro com operações de depósito, saque e organização de metas, aplicando boas práticas de modelagem e estruturação do código.
+      </p>
+      <div class="project-tags">
+        <span class="tag">C#</span>
+        <span class="tag">.NET</span>
+        <span class="tag blue">Console App</span>
+        <span class="tag blue">Financeiro</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div style="margin-top: 2.5rem; text-align:center;">
+    <a href="https://github.com/guilhermebarbarino?tab=repositories" target="_blank" class="btn btn-primary">
+      ↗ Ver todos os repositórios
+    </a>
+  </div>
+</section>
+
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact" class="reveal">
+  <div class="section-label" style="justify-content:center;">contato</div>
+  <h2 class="section-title">Vamos <span class="accent">conversar?</span></h2>
+  <p class="contact-sub">
+    Aberto a oportunidades, projetos e boas conversas sobre arquitetura de software.<br>
+    
+  </p>
+  <div class="contact-links">
+    <a href="mailto:guilherme.silvabarbarino@gmail.com" class="btn btn-primary">✉ Enviar Email</a>
+    <a href="https://www.linkedin.com/in/guilhermebarbarino/" target="_blank" class="btn btn-ghost">LinkedIn</a>
+    <a href="https://github.com/guilhermebarbarino" target="_blank" class="btn btn-ghost">GitHub</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span class="accent">Guilherme Barbarino</span> · Software Engineer</p>
+  <p style="font-family:var(--mono);font-size:0.65rem;color:var(--muted);">
+    Built with <span class="accent">♥</span> · Cotia, SP
+  </p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
+
+  document.querySelectorAll('nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href'))
+        ?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
 </body>
 </html>
